@@ -17,12 +17,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var tagText: UITextField!
     @IBOutlet weak var contentText: UITextField!
+    @IBOutlet weak var findFriendEmail: UITextField!
+    @IBOutlet weak var userNotFound: UILabel!
+    @IBOutlet weak var inviteView: UIView!
+    @IBOutlet weak var inviteName: UILabel!
     
     var email: String = ""
     var name: String = ""
-    var titleField: String? = ""
+    var titleField: String = ""
     var tag: String = ""
-    var content: String? = ""
+    var content: String = ""
+    var friendEmail: String = ""
     
     
     var ref: DatabaseReference!
@@ -48,11 +53,50 @@ class ViewController: UIViewController {
         self.ref.child("user").child("user02").removeValue()
     }
     
+    func filterFriend() {
+        
+        friendEmail = findFriendEmail.text!
+        
+        ref.child("user").queryOrdered(byChild: "email").queryEqual(toValue: friendEmail).observeSingleEvent(of: .value) { (snapshot) in
+        print(snapshot)
+            
+            guard let value = snapshot.value as? NSDictionary else {
+                print("no such value")
+                self.userNotFound.isHidden = false
+                return
+            }
+            
+            guard let key = value.allKeys.first as? String else {
+                print("no such key")
+                return
+            }
+            
+            guard let info = value[key] as? [String: Any] else {
+                print("no such info")
+                return
+            }
+            guard let nameInDic = info["username"] as? String else {
+                return
+            }
+            
+            self.inviteView.isHidden = false
+            self.inviteName.text = nameInDic
+        }
+    }
+    
+    @IBAction func findFriend(_ sender: Any) {
+        
+        filterFriend()
+    }
     
     @IBAction func sendArticle(_ sender: Any) {
         
         createArticle()
     }
+    
+    @IBAction func inviteAction(_ sender: Any) {
+    }
+    
     
     func createArticle() {
         
@@ -64,7 +108,7 @@ class ViewController: UIViewController {
         dateFormat.dateFormat = "MM/dd/yyyy HH:mm:ss"
         let dateString: String = dateFormat.string(from: now)
         
-        content = contentText.text
+        content = contentText.text!
         tag = tagText.text!
         titleField = titleText.text!
         
