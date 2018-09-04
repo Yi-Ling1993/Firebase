@@ -34,6 +34,8 @@ class ViewController: UIViewController {
     
     var ref: DatabaseReference!
     
+    var globalFriendKey: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +45,54 @@ class ViewController: UIViewController {
         
 //        seeData()
         
+        guard let storedUserKey = UserDefaults.standard.string(forKey: "storedUserKey") else {return}
+        
+        ref.child("user").child(storedUserKey).child("friends").observe(.childAdded) { (snapshot) in
+            print(snapshot)
+            
+            let status = snapshot.value as? String
+            
+            let friendKey = snapshot.key
+            
+            self.globalFriendKey = friendKey
+            
+            if status == "To be confirmed" {
+                print("要有畫面")
+                self.showInviteAlert()
+            }
+        }
+        
+    }
+    
+    func showInviteAlert() {
+        
+        let alert = UIAlertController(title: "你被邀請了！", message: "要嗎？", preferredStyle: .alert)
+        let actionConfirmed = UIAlertAction(title: "好啊", style: .default) {(action) in
+            print("確認好友")
+            
+            
+            
+            guard let storedUserKey = UserDefaults.standard.string(forKey: "storedUserKey") else {return}
+
+            
+            self.ref.updateChildValues(["/user/\(self.globalFriendKey)/friends/\(storedUserKey)": "friend"])
+            self.ref.updateChildValues(["/user/\(storedUserKey)/friends/\(self.globalFriendKey)": "friend"])
+        }
+        
+        let actionDenied = UIAlertAction(title: "不要", style: .default) {(action) in
+            print("拒絕邀請")
+            
+            guard let storedUserKey = UserDefaults.standard.string(forKey: "storedUserKey") else {return}
+
+            
+            self.ref.child("user").child("\(storedUserKey)").child("friends").child("\(self.globalFriendKey)").removeValue()
+            self.ref.child("user").child("\(self.globalFriendKey)").child("friends").child("\(storedUserKey)").removeValue()
+
+        }
+        
+        alert.addAction(actionConfirmed)
+        alert.addAction(actionDenied)
+        present(alert, animated: true, completion: nil)
     }
     
     func removeData() {
@@ -102,17 +152,16 @@ class ViewController: UIViewController {
             
             guard let value = snapshot.value as? NSDictionary else {
                 print("no such value")
-                self.userNotFound.isHidden = false
                 return
             }
             
-            guard let userKey = value.allKeys.first as? String else {
+            guard let friendKey = value.allKeys.first as? String else {
                 print("no such key")
                 return
             }
         
-         self.ref.updateChildValues(["/user/\(userKey)/friends/\(storedUserKey)": "To be comfirmed"])
-         self.ref.updateChildValues(["/user/\(storedUserKey)/friends/\(userKey)": "Invited"])
+         self.ref.updateChildValues(["/user/\(friendKey)/friends/\(storedUserKey)": "To be confirmed"])
+         self.ref.updateChildValues(["/user/\(storedUserKey)/friends/\(friendKey)": "Invited"])
             
         }
         
