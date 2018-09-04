@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var userNotFound: UILabel!
     @IBOutlet weak var inviteView: UIView!
     @IBOutlet weak var inviteName: UILabel!
+    @IBOutlet weak var searchTag: UITextField!
+    @IBOutlet weak var searchUser: UITextField!
     
     var email: String = ""
     var name: String = ""
@@ -39,13 +41,8 @@ class ViewController: UIViewController {
         
 //        removeData()
         
-      
-        
 //        seeData()
         
-        filter()
-        
-
     }
     
     func removeData() {
@@ -130,6 +127,22 @@ class ViewController: UIViewController {
         createUser()
     }
     
+    @IBAction func filterUserAndTag(_ sender: Any) {
+        
+        filterTagAndUser()
+    }
+    
+    @IBAction func filterTag(_ sender: Any) {
+        
+        filterTag()
+    }
+    
+    @IBAction func filterUser(_ sender: Any) {
+        
+        filterUser()
+    }
+    
+    
     func createUser() {
         
         let key = ref.child("user").childByAutoId().key
@@ -152,9 +165,28 @@ class ViewController: UIViewController {
         }
     }
     
-    func filter() {
+    func filterTagAndUser() {
         
-        ref.child("article").queryOrdered(byChild: "author_tag").queryEqual(toValue: "123456@gmail.com_表特").observeSingleEvent(of: .value) { (snapshot) in
+        let user = searchUser.text!
+        let filteredTag = searchTag.text!
+        
+        ref.child("article").queryOrdered(byChild: "author_tag").queryEqual(toValue: "\(user)_\(filteredTag)").observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot)
+            
+        }
+    }
+    
+    func filterTag() {
+        
+        ref.child("article").queryOrdered(byChild: "article_tag").queryEqual(toValue: searchTag.text).observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot)
+            
+        }
+    }
+    
+    func filterUser() {
+        
+        ref.child("article").queryOrdered(byChild: "author").queryEqual(toValue: searchUser.text).observeSingleEvent(of: .value) { (snapshot) in
             print(snapshot)
             
         }
