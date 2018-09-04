@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,13 +13,111 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FirebaseDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iNj-sG-hIc">
+                                <rect key="frame" x="38" y="70" width="300" height="30"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="gkT-Bw-7im"/>
+                                    <constraint firstAttribute="height" constant="30" id="tx1-FK-It0"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PLX-0g-Mk3">
+                                <rect key="frame" x="38" y="120" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="I0f-yn-r7h"/>
+                                    <constraint firstAttribute="width" constant="300" id="dcf-2r-lk7"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HGO-OM-Tnw">
+                                <rect key="frame" x="38" y="332" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="8Cp-hY-UKB"/>
+                                    <constraint firstAttribute="height" constant="30" id="M4g-yG-7EN"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0BP-AQ-JWd">
+                                <rect key="frame" x="38" y="382" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="3iJ-J2-5hX"/>
+                                    <constraint firstAttribute="height" constant="30" id="rvS-bt-L32"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Content" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="38x-He-8hy">
+                                <rect key="frame" x="37.5" y="442" width="300" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="KZ2-uD-PIh"/>
+                                    <constraint firstAttribute="height" constant="150" id="iNM-7L-BZG"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oRZ-Aa-yZg">
+                                <rect key="frame" x="171" y="158" width="33" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="33" id="IK4-cZ-vxf"/>
+                                    <constraint firstAttribute="height" constant="30" id="aHe-eV-sYr"/>
+                                </constraints>
+                                <state key="normal" title="User"/>
+                                <connections>
+                                    <action selector="goUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XXx-ku-iDv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeH-dz-Xs8">
+                                <rect key="frame" x="165" y="600" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="7Zn-H4-Xb5"/>
+                                    <constraint firstAttribute="height" constant="30" id="rol-gu-TWe"/>
+                                </constraints>
+                                <state key="normal" title="發廢文"/>
+                                <connections>
+                                    <action selector="sendArticle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jeu-Yc-r6O"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PLX-0g-Mk3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0ls-mS-koA"/>
+                            <constraint firstItem="oRZ-Aa-yZg" firstAttribute="top" secondItem="PLX-0g-Mk3" secondAttribute="bottom" constant="8" id="2xW-T1-X5v"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="38x-He-8hy" secondAttribute="bottom" constant="75" id="4A5-pI-tNd"/>
+                            <constraint firstItem="iNj-sG-hIc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="7Zi-lg-i42"/>
+                            <constraint firstItem="iNj-sG-hIc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AqJ-Yc-fkN"/>
+                            <constraint firstItem="PLX-0g-Mk3" firstAttribute="top" secondItem="iNj-sG-hIc" secondAttribute="bottom" constant="20" id="FAj-kN-fYI"/>
+                            <constraint firstItem="HGO-OM-Tnw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="G1m-oL-rCt"/>
+                            <constraint firstItem="oRZ-Aa-yZg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HBe-Ur-fKA"/>
+                            <constraint firstItem="QeH-dz-Xs8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ScW-2l-Dkf"/>
+                            <constraint firstItem="QeH-dz-Xs8" firstAttribute="top" secondItem="38x-He-8hy" secondAttribute="bottom" constant="8" id="Sgg-5N-nqW"/>
+                            <constraint firstItem="38x-He-8hy" firstAttribute="top" secondItem="0BP-AQ-JWd" secondAttribute="bottom" constant="30" id="cQ2-fx-QT3"/>
+                            <constraint firstItem="38x-He-8hy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="e7W-LV-FBI"/>
+                            <constraint firstItem="0BP-AQ-JWd" firstAttribute="top" secondItem="HGO-OM-Tnw" secondAttribute="bottom" constant="20" id="f4y-Ox-aaU"/>
+                            <constraint firstItem="0BP-AQ-JWd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yhz-M6-xAv"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="contentText" destination="38x-He-8hy" id="pCE-iJ-Dcu"/>
+                        <outlet property="emailText" destination="PLX-0g-Mk3" id="8US-iD-Utl"/>
+                        <outlet property="nameText" destination="iNj-sG-hIc" id="DzD-vr-sNI"/>
+                        <outlet property="tagText" destination="0BP-AQ-JWd" id="f7E-Q1-JwZ"/>
+                        <outlet property="titleText" destination="HGO-OM-Tnw" id="FeW-Tn-eDH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
