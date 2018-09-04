@@ -92,6 +92,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func inviteAction(_ sender: Any) {
+        
+        let storedUserKey = UserDefaults.standard.string(forKey: "storedUserKey") ?? ""
+        
+        friendEmail = findFriendEmail.text!
+        
+        ref.child("user").queryOrdered(byChild: "email").queryEqual(toValue: friendEmail).observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot)
+            
+            guard let value = snapshot.value as? NSDictionary else {
+                print("no such value")
+                self.userNotFound.isHidden = false
+                return
+            }
+            
+            guard let userKey = value.allKeys.first as? String else {
+                print("no such key")
+                return
+            }
+        
+         self.ref.updateChildValues(["/user/\(userKey)/friends/\(storedUserKey)": "To be comfirmed"])
+         self.ref.updateChildValues(["/user/\(storedUserKey)/friends/\(userKey)": "Invited"])
+            
+        }
+        
+        
     }
     
     
@@ -146,6 +171,8 @@ class ViewController: UIViewController {
     func createUser() {
         
         let key = ref.child("user").childByAutoId().key
+        
+        UserDefaults.standard.set(key, forKey: "storedUserKey")
         
         email = emailText.text!
         name = nameText.text!
