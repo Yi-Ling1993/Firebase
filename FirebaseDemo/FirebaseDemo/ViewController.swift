@@ -31,6 +31,9 @@ class ViewController: UIViewController {
     var content: String = ""
     var friendEmail: String = ""
     
+    var storedUserKey: String {
+        return UserDefaults.standard.string(forKey: "storedUserKey") ?? ""
+    }
     
     var ref: DatabaseReference!
     
@@ -45,22 +48,7 @@ class ViewController: UIViewController {
         
 //        seeData()
         
-        guard let storedUserKey = UserDefaults.standard.string(forKey: "storedUserKey") else {return}
-        
-        ref.child("user").child(storedUserKey).child("friends").observe(.childAdded) { (snapshot) in
-            print(snapshot)
-            
-            let status = snapshot.value as? String
-            
-            let friendKey = snapshot.key
-            
-            self.globalFriendKey = friendKey
-            
-            if status == "To be confirmed" {
-                print("要有畫面")
-                self.showInviteAlert()
-            }
-        }
+//        observe()
         
     }
     
@@ -165,7 +153,6 @@ class ViewController: UIViewController {
             
         }
         
-        
     }
     
     
@@ -226,12 +213,36 @@ class ViewController: UIViewController {
         email = emailText.text!
         name = nameText.text!
         
-        let post = ["email": email,
-                    "friends": "",
+        let post: [String: Any] = ["email": email,
+                    "friends": ["test": ""],
                     "username": name]
         
         let childUpdates = ["/user/\(key)": post]
-        ref.updateChildValues(childUpdates)
+        ref.updateChildValues(childUpdates) { (_, _) in
+            
+             self.observe()
+        }
+        
+       
+        
+    }
+    
+    func observe() {
+        
+        ref.child("user").child(storedUserKey).child("friends").observe(.childAdded) { (snapshot) in
+            print(snapshot)
+            
+            let status = snapshot.value as? String
+            
+            let friendKey = snapshot.key
+            
+            self.globalFriendKey = friendKey
+            
+            if status == "To be confirmed" {
+                print("要有畫面")
+                self.showInviteAlert()
+            }
+        }
     }
     
     func seeData() {
